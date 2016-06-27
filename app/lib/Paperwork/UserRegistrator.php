@@ -57,9 +57,8 @@ class UserRegistrator
         $versionCreate = new \Version([
           'title'           => Lang::get('notebooks.welcome_note_title'),
           'content'         => Lang::get('notebooks.welcome_note_content'),
-          'content_preview' => mb_substr(strip_tags(Lang::get('notebooks.welcome_note_content')),
-					 0, 255),
-	  'user_id'         => $user->id
+          'content_preview' => mb_substr(strip_tags(Lang::get('notebooks.welcome_note_content')), 0, 255),
+	      'user_id'         => $user->id
         ]);
 
         $versionCreate->save();

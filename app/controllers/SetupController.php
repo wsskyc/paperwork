@@ -21,8 +21,10 @@ class SetupController extends BaseController {
     }
     
     public function installDatabase() {
-        define('STDIN', fopen("php://stdin", "r"));
+        /*define('STDIN', fopen("php://stdin", "r"));
         Artisan::call('migrate', ['--force' => true]);
+        return PaperworkHelpers::apiResponse(PaperworkHelpers::STATUS_SUCCESS, array());*/
+        Log::info("Hello");
         return PaperworkHelpers::apiResponse(PaperworkHelpers::STATUS_SUCCESS, array());
     }
     
