@@ -1,0 +1,13 @@
+{
+    "name": "Paperwork",
+    "description": "An open source note-taking and arching application. ",
+    "website": "http://www.paperwork.rocks",
+    "repository": "https://github.com/twostairs/paperwork",
+    "logo": "https://raw.githubusercontent.com/twostairs/paperwork/master/paperwork-logo.png",
+    "scripts": {
+        "postdeploy": "php artisan paperwork:install"
+    },
+    "env": {
+        "BUILDPACK_URL": "https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-php"
+    }
+}
