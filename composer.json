@@ -12,7 +12,8 @@
 		"barryvdh/laravel-ide-helper": "~1.11",
 		"webpatser/laravel-uuid": "1.*",
 		"strebl/adldap": "^4.0",
-		"ext/mcrypt": "*"
+		"ext/mcrypt": "*",
+		"php": "^5.6"
 	},
 	"autoload": {
 		"classmap": [
