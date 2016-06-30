@@ -2,10 +2,10 @@
 .codekit-cache
 app/storage/attachments/*
 node_modules
-public/css
-!public/css/bootstrap-editable.css
-public/js
-!public/js/bootstrap-editable.min.js
+#public/css
+#!public/css/bootstrap-editable.css
+#public/js
+#!public/js/bootstrap-editable.min.js
 Thumbs.db
 npm-debug.log
 /bootstrap/compiled.php
