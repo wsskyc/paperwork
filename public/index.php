@@ -1,28 +1,27 @@
 <?php
 
-    /** Check if all config lines are present. 
+    /** Check if all config lines are present.
      * If not, either the installation is damaged
-     * or installation has not been done. Run the 
-     * Setup Wizard. 
+     * or installation has not been done. Run the
+     * Setup Wizard.
      */
-    
-    //Skip if on Heroku
-    /*if(!file_exists("../app/storage/config/setup") ||
+
+    if(!file_exists("../app/storage/config/setup") ||
         file_get_contents("../app/storage/config/setup") == 3 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         file_get_contents("../app/storage/config/setup") == 4 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         file_get_contents("../app/storage/config/setup") == 6 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         file_get_contents("../app/storage/config/setup") == 5 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
-        !file_exists("../app/storage/config/paperwork.json") && !$_SERVER['HTTP_X_REQUESTED_WITH'] || 
+        !file_exists("../app/storage/config/paperwork.json") && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         !file_exists("../app/storage/config/database.json") && !$_SERVER['HTTP_X_REQUESTED_WITH']) {
             header("Location: setup.php");
-    }else{*/
+    }else{
         /**
          * Laravel - A PHP Framework For Web Artisans
          *
          * @package  Laravel
          * @author   Taylor Otwell <taylorotwell@gmail.com>
          */
-        
+
         /*
         |--------------------------------------------------------------------------
         | Register The Auto Loader
@@ -34,9 +33,9 @@
         | loading of any our classes "manually". Feels great to relax.
         |
         */
-        
+
         require __DIR__.'/../bootstrap/autoload.php';
-        
+
         /*
         |--------------------------------------------------------------------------
         | Turn On The Lights
@@ -48,9 +47,9 @@
         | the responses back to the browser and delight these users.
         |
         */
-        
+
         $app = require_once __DIR__.'/../bootstrap/start.php';
-        
+
         /*
         |--------------------------------------------------------------------------
         | Run The Application
@@ -62,6 +61,6 @@
         | and wonderful application we have whipped up for them.
         |
         */
-        
+
         $app->run();
-    //}
+    }
