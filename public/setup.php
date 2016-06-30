@@ -1,4 +1,4 @@
-<?php 
+<?php
     $currentStep = (file_exists("../app/storage/config/setup") ? file_get_contents("../app/storage/config/setup") : 1);
     if($currentStep >= 7) {
         header("Location: /");
@@ -90,10 +90,10 @@
             }
         </style>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        
+
     </head>
     <body>
-        <?php 
+        <?php
             if(file_exists("../app/storage/db_settings")) {
         ?>
         <div class="modal fade" tabindex="-1" role="dialog" id="convert_settings_dialog">
@@ -118,7 +118,7 @@
                 </div>
             </div>
         </div>
-        <?php 
+        <?php
             }
         ?>
         <div class="navbar navbar-default" role="navigation">
@@ -137,9 +137,9 @@
             <div class="col-md-12 step <?php if($currentStep == 1) { ?>step_active<?php } ?>" id="step1">
                 <h1>Welcome</h1>
                 <p>
-                    Through this wizard, you will be able to install and configure your Paperwork instance. At the end of 
-                    this process, you will be able to use Paperwork as your note-taking application. This installer will 
-                    take care of the following things: 
+                    Through this wizard, you will be able to install and configure your Paperwork instance. At the end of
+                    this process, you will be able to use Paperwork as your note-taking application. This installer will
+                    take care of the following things:
                     <ul>
                         <li>check that all assets and dependencies are in place, </li>
                         <li>configure the database needed to save Paperwork's data,</li>
@@ -148,78 +148,24 @@
                         <li>register the first user account on your Paperwork instance. </li>
                     </ul>
                     <br>
-                    Paperwork is licensed under the MIT license. 
+                    Paperwork is licensed under the MIT license.
                 </p>
             </div>
             <div class="col-md-12 step <?php if($currentStep == 2) { ?>step_active<?php } ?>" id="step2">
                 <h1>Checking dependencies</h1>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Database</h3>
-                    </div>
-                    <?php 
-                        $installed_modules = 0;
-                        if(extension_loaded("mysql")) {
-                            $installed_modules++;
-                        } 
-                        if(extension_loaded("postgresql")) {
-                            $installed_modules++;
-                        } 
-                        if(extension_loaded("sqlite3")) {
-                            $installed_modules++;
-                        } 
-                        if(extension_loaded("sqlsrv")) {
-                            $installed_modules++;
-                        }
-                    ?>
-                    <div class="panel-body <?php echo ($installed_modules > 0) ? 'bg-success' : 'bg-danger' ?>">
-                        <p>
-                            Paperwork needs a database to work. Currently, MySQL, Postgres, SQLite and SQL Server are supported. Here, you have the following 
-                            database systems installed and configured:
-                            <br>
-                            <?php 
-                                if(extension_loaded("mysql")) {
-                            ?>
-                            <p class="text-success">MySQL is installed and enabled. </p>
-                            <?php
-                                } 
-                                if(extension_loaded("postgresql")) {
-                            ?>
-                            <p class="text-success">Postgres is installed and enabled. </p>
-                            <?php
-                                } 
-                                if(extension_loaded("sqlite3")) {
-                            ?>
-                            <p class="text-success">SQLite is installed and enabled. </p>
-                            <?php
-                                } 
-                                if(extension_loaded("sqlsrv")) {
-                            ?>
-                            <p class="text-success">SQL Server is installed and enabled. </p>
-                            <?php
-                                }
-                                if($installed_modules < 0) {
-                            ?>
-                            <p class="text-error">None of the supported database systems are installed and enabled. </p>
-                            <?php
-                                }
-                            ?>
-                        </p>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
                         <h3 class="panel-title">PHP Dependencies</h3>
                     </div>
-                    <?php 
+                    <?php
                         $composer_contents = file_get_contents("../composer.json");
                         $composer_contents = json_decode($composer_contents);
                         $composer_contents = $composer_contents->{"require"};
-                        
+
                         $installed_composer = file_get_contents("../composer.lock");
                         $installed_composer = json_decode($installed_composer);
                         $installed_composer = $installed_composer->{"packages"};
-                        
+
                         $installed_dependencies = [];
 
                         foreach ($composer_contents as $composer_key => $composer_value) {
@@ -235,7 +181,7 @@
                     ?>
                     <div class="panel-body <?php echo ($showErrorBackground) ? 'bg-danger' : 'bg-success' ?>">
                         <p>Paperwork needs a number of packages installable using Composer in order to work. </p>
-                        <?php 
+                        <?php
                             foreach ($installed_dependencies as $package_name => $installed) {
                                 if(!$installed_dependencies[$package_name]) {
                         ?>
@@ -244,54 +190,7 @@
                                 }else{
                         ?>
                         <p class="text-success">The package <?php echo $package_name; ?> is installed. </p>
-                        <?php 
-                                }
-                            }
-                        ?>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">NPM Dependencies</h3>
-                    </div>
-                    <?php 
-                        $installed_npm_packages = [];
-                        exec("cd ../app/storage/config/ && npm ls --json=true > npm-packages.json");
-                        
-                        $npm_packages_installed = file_get_contents("../app/storage/config/npm-packages.json");
-                        $npm_packages_installed = json_decode($npm_packages_installed);
-                        $npm_packages_installed = $npm_packages_installed->{"dependencies"};
-
-                        $npm_dependencies = file_get_contents("../package.json");
-                        $npm_dependencies = json_decode($npm_dependencies);
-                        $npm_dependencies = $npm_dependencies->{"devDependencies"};
-
-                        foreach($npm_dependencies as $npm_dependency_name => $npm_dependency_value) {
-                            foreach($npm_packages_installed as $npm_package_installed_name => $npm_package_installed_value) {
-                                if($npm_dependency_name === $npm_package_installed_name) {
-                                    $installed_npm_packages[$npm_dependency_name] = true;
-                                }
-                            }
-                            if(!$installed_npm_packages[$npm_dependency_name]) {
-                                $npm_missing = true;
-                            }
-                        }
-                        
-                        unlink("../app/storage/config/npm-packages.json");
-                        
-                    ?>
-                    <div class="panel-body <?php echo ($npm_missing) ? 'bg-danger' : 'bg-success'; ?>">
-                        <p>Paperwork needs a number of dependencies installed using NPM in order to function correctly. </p>
-                        <?php 
-                            foreach($npm_dependencies as $npm_dependency_name => $npm_dependency_value) {
-                                if($installed_npm_packages[$npm_dependency_name]) {
-                        ?>
-                        <p class="text-success">The package <?php echo $npm_dependency_name; ?> is installed. </p>
-                        <?php 
-                                }else{
-                        ?>
-                        <p class="text-error">The package <?php echo $npm_dependency_name; ?> is not fully installed. Did you run <code>npm install</code>?</p>
-                        <?php 
+                        <?php
                                 }
                             }
                         ?>
@@ -301,22 +200,22 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Asset Dependencies</h3>
                     </div>
-                    <?php 
+                    <?php
                         if(!file_exists("css/bootstrap-theme.min.css") || !file_exists("css/themes/paperwork-v1.min.css") ||
-                        !file_exists("css/libs.css") || !file_exists("css/freqselector.min.css") || 
+                        !file_exists("css/libs.css") || !file_exists("css/freqselector.min.css") ||
                         !file_exists("css/typeahead.min.css") || !file_exists("js/bootstrap.min.js") ||
                         !file_exists("js/paperwork.min.js") || !file_exists("js/paperwork-native.min.js") ||
-                        !file_exists("js/angular.min.js") || !file_exists("js/jquery.min.js") || 
+                        !file_exists("js/angular.min.js") || !file_exists("js/jquery.min.js") ||
                         !file_exists("js/tagsinput.min.js") || !file_exists("js/libraries.min.js") ||
                         !file_exists("js/ltie9compat.min.js") || !file_exists("js/ltie11compat.min.js")) {
                             $assets_missing = true;
-                            
+
                         }else{
                             $assets_missing = false;
                         }
                     ?>
                     <div class="panel-body <?php echo (!$assets_missing) ? 'bg-success' : 'bg-danger' ?>">
-                        <?php 
+                        <?php
                             if($assets_missing) {
                         ?>
                         <p class="text-error">You seem to be lacking some files required for Paperwork to work. Did you run <code>bower install</code> and <code>gulp</code>?</p>
@@ -324,7 +223,7 @@
                             }else{
                         ?>
                         <p class="text-success">All files needed seem to be in place. </p>
-                        <?php 
+                        <?php
                             }
                         ?>
                     </div>
@@ -374,7 +273,7 @@
             </div>
             <div class="col-md-12 step <?php if($currentStep == 4) { ?>step_active<?php } ?>" id="step4">
                 <h1>Customise your Paperwork</h1>
-                <p>Paperwork can be customised to fit your needs. Use the form below to configurate Paperwork according to your wishes. </p> 
+                <p>Paperwork can be customised to fit your needs. Use the form below to configurate Paperwork according to your wishes. </p>
                 <br>
                 <div class="bg-danger credentials_alert" id="config_not_set" style="display: none">
                     <p>Configuration has not been set correctly. Please try again. </p>
@@ -504,20 +403,20 @@
                 if(currentStep == 7) {
                     disableButtons();
                 }else if(currentStep == 2) {
-                    <?php 
-                        if($installed_modules <= 0 || $showErrorBackground ||  $npm_missing || $assets_missing) {
+                    <?php
+                        if($showErrorBackground || $assets_missing) {
                     ?>
                     $("#next_btn").text("Reload");
                     $("#next_btn").off("click");
                     $("#next_btn").on("click", function() {
                         window.location.reload();
                     });
-                    <?php 
+                    <?php
                         }
                     ?>
                 }else if(currentStep == 3) {
                     $("#next_btn, #next_btn_mobile").attr("disabled", true);
-                    <?php 
+                    <?php
                         if(file_exists("../app/storage/db_settings")) {
                     ?>
                     $("#convert_settings_dialog").modal();
@@ -585,9 +484,9 @@
                 if(currentStep == 4) {
                     data = "";
                     var checkboxes = $("#config_form input[type='checkbox']");
-                    for(var i = 0; i < checkboxes.length; i++) { 
+                    for(var i = 0; i < checkboxes.length; i++) {
                         data += checkboxes[i].name + "=";
-                        if(checkboxes[i].checked) { 
+                        if(checkboxes[i].checked) {
                             data += "true&"
                         }else{
                             data += "false&"
