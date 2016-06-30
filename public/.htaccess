@@ -3,8 +3,6 @@
 #        Options -MultiViews
 #    </IfModule>
 
-    TimeOut 1000
-
     RewriteEngine On
 
     # Redirect Trailing Slashes...
