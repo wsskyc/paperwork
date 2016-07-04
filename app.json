@@ -4,9 +4,6 @@
     "website": "http://www.paperwork.rocks",
     "repository": "https://github.com/twostairs/paperwork",
     "logo": "https://raw.githubusercontent.com/twostairs/paperwork/master/paperwork-logo.png",
-    "scripts": {
-        "postdeploy": "php artisan paperwork:install"
-    },
     "env": {
         "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-php"
     },
