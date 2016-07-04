@@ -22,7 +22,12 @@
                 'port' => $_POST['port']
             );
 
+            $array = array();
             file_put_contents("../../app/storage/config/database.json", json_encode($string));
+            var_dump(file_get_contents("../../app/storage/config/database.json"));
+            exec("php artisan migrate", $array);
+            var_dump($array);
+            exit();
 
             header("Location: ".$_SERVER['HTTP_REFERRER'], true, 200);
 
