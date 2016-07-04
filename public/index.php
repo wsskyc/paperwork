@@ -19,7 +19,8 @@
             header("Location: setup.php");
     }else{
         var_dump(3);
-        exit();
+        //exit();
+        var_dump(__DIR__);
         /**
          * Laravel - A PHP Framework For Web Artisans
          *
@@ -39,6 +40,7 @@
         |
         */
 
+        var_dump(6);
         require __DIR__.'/bootstrap/autoload.php';
 
         /*
@@ -53,6 +55,7 @@
         |
         */
 
+        var_dump(5);
         $app = require_once __DIR__.'/bootstrap/start.php';
 
         /*
@@ -67,5 +70,8 @@
         |
         */
 
+        var_dump(4);
+        exit();
         $app->run();
+        exit();
     }
