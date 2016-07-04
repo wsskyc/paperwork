@@ -15,7 +15,7 @@
         !file_exists("../app/storage/config/paperwork.json") && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         !file_exists("../app/storage/config/database.json") && !$_SERVER['HTTP_X_REQUESTED_WITH']) {
             var_dump(2);
-            exit();
+            //exit();
             header("Location: setup.php");
     }else{
         var_dump(3);
