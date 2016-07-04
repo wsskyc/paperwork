@@ -1,6 +1,6 @@
 <?php
 
-    if(!file_exists("../../app/storage/config/database1.json")) {
+    if(!file_exists("../../app/storage/config/database.json")) {
 
         try {
             if($_GET['driver'] === "mysql") {
@@ -22,7 +22,7 @@
                 'port' => $_POST['port']
             );
 
-            file_put_contents("../../app/storage/config/database1.json", json_encode($string));
+            file_put_contents("../../app/storage/config/database.json", json_encode($string));
 
             header("Location: ".$_SERVER['HTTP_REFERRER'], true, 200);
 
@@ -31,3 +31,4 @@
         }
 
     }
+    
