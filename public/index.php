@@ -6,6 +6,7 @@
      * Setup Wizard.
      */
 
+    var_dump(1);
     if(!file_exists("../app/storage/config/setup") ||
         file_get_contents("../app/storage/config/setup") == 3 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         file_get_contents("../app/storage/config/setup") == 4 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
@@ -13,8 +14,12 @@
         file_get_contents("../app/storage/config/setup") == 5 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         !file_exists("../app/storage/config/paperwork.json") && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         !file_exists("../app/storage/config/database.json") && !$_SERVER['HTTP_X_REQUESTED_WITH']) {
+            var_dump(2);
+            exit();
             header("Location: setup.php");
     }else{
+        var_dump(3);
+        exit();
         /**
          * Laravel - A PHP Framework For Web Artisans
          *
