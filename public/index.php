@@ -71,7 +71,7 @@
         */
 
         var_dump(4);
-        exit();
+        //exit();
         $app->run();
-        exit();
+        //exit();
     }
