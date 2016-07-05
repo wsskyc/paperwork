@@ -26,7 +26,7 @@
             file_put_contents("../../app/storage/config/database.json", json_encode($string));
             var_dump(file_get_contents("../../app/storage/config/database.json"));
             var_dump(getcwd());
-            exec("cd ../../ && php artisan migrate", $array);
+            exec("cd ../../ && php artisan migrate --force", $array);
             var_dump($array);
             exit();
 
