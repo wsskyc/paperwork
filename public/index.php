@@ -6,7 +6,7 @@
      * Setup Wizard.
      */
 
-    var_dump(1);
+    //var_dump(1);
     if(!file_exists("../app/storage/config/setup") ||
         file_get_contents("../app/storage/config/setup") == 3 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         file_get_contents("../app/storage/config/setup") == 4 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
@@ -14,13 +14,13 @@
         file_get_contents("../app/storage/config/setup") == 5 && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         !file_exists("../app/storage/config/paperwork.json") && !$_SERVER['HTTP_X_REQUESTED_WITH'] ||
         !file_exists("../app/storage/config/database.json") && !$_SERVER['HTTP_X_REQUESTED_WITH']) {
-            var_dump(2);
+            //var_dump(2);
             //exit();
             header("Location: setup.php");
     }else{
-        var_dump(3);
+        //var_dump(3);
         //exit();
-        var_dump(__DIR__);
+        //var_dump(__DIR__);
         /**
          * Laravel - A PHP Framework For Web Artisans
          *
@@ -40,7 +40,7 @@
         |
         */
 
-        var_dump(6);
+        //var_dump(6);
         require __DIR__.'/../bootstrap/autoload.php';
 
         /*
@@ -55,7 +55,7 @@
         |
         */
 
-        var_dump(5);
+        //var_dump(5);
         $app = require_once __DIR__.'/../bootstrap/start.php';
 
         /*
@@ -70,7 +70,7 @@
         |
         */
 
-        var_dump(4);
+        //var_dump(4);
         //exit();
         $app->run();
         //exit();
