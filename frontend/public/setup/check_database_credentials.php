@@ -1,7 +1,7 @@
 <?php
 
-    if(!file_exists("../../app/storage/config/database1.json")) {
-        
+    if(!file_exists("../../app/storage/config/database.json")) {
+
         try {
             if($_GET['driver'] === "mysql") {
                 $connection = new PDO("mysql:host=".$_GET['host'].";port=".$_GET['port'].";dbname=".$_GET['database'], $_GET['username'], $_GET['password']);
@@ -12,7 +12,7 @@
             }else if($_GET['driver'] === 'sqlsrv') {
                 $connection = new PDO("sqlsrv:Server=".$_GET['host'].",".$_GET['port'].";Database=".$_GET['database'], $_GET['username'], $_GET['password']);
             }
-            
+
             $string = array(
                 'driver' => $_POST['driver'],
                 'database' => $_POST['database'],
@@ -21,13 +21,15 @@
                 'password' => $_POST['password'],
                 'port' => $_POST['port']
             );
-            
-            file_put_contents("../../app/storage/config/database1.json", json_encode($string));
-            
+
+            $array = array();
+            file_put_contents("../../app/storage/config/database.json", json_encode($string));
+            exec("cd ../../ && php artisan migrate --force", $array);
+
             header("Location: ".$_SERVER['HTTP_REFERRER'], true, 200);
-            
+
         }catch(PDOException $e) {
             header("Location: ".$_SERVER['HTTP_REFERRER'], true, 404);
         }
-        
+
     }

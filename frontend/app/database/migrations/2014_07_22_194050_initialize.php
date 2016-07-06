@@ -20,7 +20,7 @@ class Initialize extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('remember_token', 100)->nullable();
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->softDeletes();
             $table->engine = 'InnoDB';
         });
@@ -30,7 +30,7 @@ class Initialize extends Migration
             $table->char('user_id', 36);
             $table->foreign('user_id')->references('id')->on('users');
             $table->char('ui_language', 2);
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->softDeletes();
             $table->engine = 'InnoDB';
         });
@@ -111,7 +111,7 @@ class Initialize extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->char('language_id', 36);
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->engine = 'InnoDB';
         });
 
@@ -120,7 +120,7 @@ class Initialize extends Migration
             $table->char('parent_id', 36)->nullable();
             $table->tinyInteger('type')->unsigned()->default(0);
             $table->string('title');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->softDeletes();
             $table->engine = 'InnoDB';
         });
@@ -135,7 +135,7 @@ class Initialize extends Migration
             $table->char('notebook_id', 36);
             $table->foreign('notebook_id')->references('id')->on('notebooks')->onDelete('cascade');
             $table->tinyInteger('umask');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->engine = 'InnoDB';
         });
 
@@ -146,7 +146,7 @@ class Initialize extends Migration
             $table->string('title');
             $table->string('content_preview');
             $table->text('content');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->softDeletes();
             $table->engine = 'InnoDB';
         });
@@ -157,7 +157,7 @@ class Initialize extends Migration
 
         Schema::create('attachments', function (Blueprint $table) {
             $table->char('id', 36)->default(null)->primary();
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->string('filename');
             $table->string('fileextension');
             $table->text('content')->nullable();
@@ -173,7 +173,7 @@ class Initialize extends Migration
             $table->foreign('attachment_id')->references('id')->on('attachments')->onDelete('cascade');
             $table->char('version_id', 36);
             $table->foreign('version_id')->references('id')->on('versions')->onDelete('cascade');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->engine = 'InnoDB';
         });
 
@@ -183,7 +183,7 @@ class Initialize extends Migration
             $table->foreign('notebook_id')->references('id')->on('notebooks');
             $table->char('version_id', 36);
             $table->foreign('version_id')->references('id')->on('versions');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->softDeletes();
             $table->engine = 'InnoDB';
         });
@@ -195,14 +195,14 @@ class Initialize extends Migration
             $table->char('note_id', 36);
             $table->foreign('note_id')->references('id')->on('notes')->onDelete('cascade');
             $table->tinyInteger('umask');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->engine = 'InnoDB';
         });
 
         Schema::create('tags', function (Blueprint $table) {
             $table->char('id', 36)->default(null)->primary();
             $table->string('title');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->softDeletes();
             $table->engine = 'InnoDB';
         });
@@ -213,7 +213,7 @@ class Initialize extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->char('tag_id', 36);
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->engine = 'InnoDB';
         });
 
@@ -223,7 +223,7 @@ class Initialize extends Migration
             $table->foreign('note_id')->references('id')->on('notes')->onDelete('cascade');
             $table->char('tag_id', 36);
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->engine = 'InnoDB';
         });
 
@@ -234,7 +234,7 @@ class Initialize extends Migration
             $table->char('notebook_id', 36);
             $table->foreign('notebook_id')->references('id')->on('notebooks')->onDelete('cascade');
             $table->tinyInteger('sortkey')->unsigned();
-            $table->timestamps();
+            $table->nullableTimestamps();
             $table->engine = 'InnoDB';
         });
     }
