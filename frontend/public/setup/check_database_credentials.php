@@ -24,7 +24,12 @@
 
             $array = array();
             file_put_contents("../../app/storage/config/database.json", json_encode($string));
-            exec("cd ../../ && php artisan migrate --force", $array);
+
+            try{
+                $test = $connection->query("SELECT * FROM migrations LIMIT 1");
+            }catch(PDOException $error) {
+                exec("cd ../../ && php artisan migrate --force", $array);
+            }
 
             header("Location: ".$_SERVER['HTTP_REFERRER'], true, 200);
 
